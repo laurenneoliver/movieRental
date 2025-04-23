@@ -24,18 +24,40 @@ public class Main {
         Rental dieHardRental = new Rental(dieHardMovie, 5, member);  // create rental for movie (Die Hard) for 5 days
         Rental johnWickRental = new Rental(johnWickMovie, 2, member);  // create rental for movie (John Wick) for 2 days
 
+        // Applying Decorators on some of them with coupons
+        RentalComponent nemoRentalWithCoupon = new FiftyPercentOffCoupon(new TenPointBonusCoupon(nemoRental));
+        RentalComponent shrekRentalWithCoupon = new TenDollarsOffCoupon(shrekRental);
+        RentalComponent dieHardRentalWithCoupon = new TenPointBonusCoupon(dieHardRental);
+        RentalComponent johnWickRentalWithCoupon = johnWickRental; // no coupo
+
         // Add rentals to the customer
         testCustomer.addRental(nemoRental);
         testCustomer.addRental(shrekRental);
         testCustomer.addRental(dieHardRental);
         testCustomer.addRental(johnWickRental);
 
-        // Output points for each rental
-        System.out.println("\nFrequent Renter Points for Each Rental:");
-        System.out.println("Nemo Rental Points: " + nemoRental.frequentRenterPoints());
-        System.out.println("Shrek Rental Points: " + shrekRental.frequentRenterPoints());
-        System.out.println("Die Hard Rental Points: " + dieHardRental.frequentRenterPoints());
-        System.out.println("John Wick Rental Points: " + johnWickRental.frequentRenterPoints());
+        // Output points for each rental using decorated versions
+        System.out.println("\nFrequent Renter Points for Each Rental (with Bonus Points coupons):");
+        System.out.println("Nemo Rental Points: " + nemoRentalWithCoupon.frequentRenterPoints());
+        System.out.println("Die Hard Rental Points: " + dieHardRentalWithCoupon.frequentRenterPoints());
+
+        System.out.println("\nCost for Each Rental (with fifty percent off coupons):");
+        System.out.println("Nemo Rental Cost: $" + nemoRentalWithCoupon.costOfRental());
+
+        System.out.println("\nCost for Each Rental (with ten dollars off coupons):");
+        System.out.println("Shrek Rental Cost: $" + shrekRentalWithCoupon.costOfRental());
+
+        // Output points for each rental without bonus points
+        System.out.println("\nFrequent Renter Points for Each Rental (regular points):");
+        System.out.println("Shrek Rental Points: " + shrekRentalWithCoupon.frequentRenterPoints());
+        System.out.println("John Wick Rental Points: " + johnWickRentalWithCoupon.frequentRenterPoints());
+
+        // Output cost for each rental without coupons
+        System.out.println("\nCost for Each Rental (regular price):");
+        System.out.println("John Wick Rental Cost: " + johnWickRentalWithCoupon.costOfRental());
+
+
+
 
         // Create reviews for the movies
         Review nemoReview = new Review(testCustomer, nemoMovie, 4);  // rating: 4 stars
