@@ -34,7 +34,7 @@ public class Genre {
 
     // Method to display movies in this genre
     public void displayMovies() {
-        System.out.println("\nMovies in " + genreName + " genre:");
+        System.out.println("Movies in " + genreName + " genre:");
         for (Movie movie : movies) {
             System.out.println(" - " + movie.getTitle());
         }

@@ -10,4 +10,3 @@ public class RegularPriceStrategy implements RentalPriceStrategy {
     }
 }
 
-

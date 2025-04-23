@@ -13,16 +13,19 @@ public class Movie {
     private List<Review> _reviews;    // List to store reviews for the movie
     private Genre _genre;             // Genre of the movie (e.g., Action, Comedy, Drama)
     private RentalPriceStrategy _priceStrategy;
+    private FrequentRenterPointStrategy _pointStrategy;
 
 
     // Constructor to initialize a movie with title, price code, and genre
-    public Movie(String title, int priceCode, Genre genre, RentalPriceStrategy priceStrategy) {
+    public Movie(String title, int priceCode, Genre genre, RentalPriceStrategy priceStrategy, FrequentRenterPointStrategy pointStrategy) {
         _title = title;
         _priceCode = priceCode;
         _reviews = new ArrayList<>();  // Initialize the reviews list
         _genre = genre;                // Assign the genre to the movie
         genre.addMovie(this);          // Add the movie to the genre's movie list
         _priceStrategy = priceStrategy;
+        _pointStrategy = pointStrategy; // Assign the point strategy
+
     }
 
     // Getter for movie title
@@ -34,8 +37,13 @@ public class Movie {
     public int getPriceCode() {
         return _priceCode;
     }
-    public RentalPriceStrategy getPriceStrategy() { 
-        return _priceStrategy; 
+    public RentalPriceStrategy getPriceStrategy() {
+        return _priceStrategy;
+    }
+
+    // Getter for point strategy
+    public FrequentRenterPointStrategy getPointStrategy() {
+        return _pointStrategy;
     }
 
     // Setter for price code

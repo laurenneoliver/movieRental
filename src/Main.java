@@ -8,23 +8,34 @@ public class Main {
         Customer testCustomer = new Customer("Laurenne");  // create a customer
         Membership member = new Membership(testCustomer, 1); // create a membership for the customer
 
-        // Create movies and assign them to genres
-        Movie nemoMovie = new Movie("Nemo", 0, comedyGenre, new ChildrensPriceStrategy());  // Movie (Nemo) in Comedy genre
-        Movie shrekMovie = new Movie("Shrek", 0, comedyGenre, new ChildrensPriceStrategy());  // Movie (Shrek) in Comedy genre
-        Movie dieHardMovie = new Movie("Die Hard", 0, actionGenre, new RegularPriceStrategy());  // Movie (Die Hard) in Action genre
-        Movie johnWickMovie = new Movie("John Wick", 0, actionGenre, new NewReleasePriceStrategy());  // Movie (John Wick) in Action genre
+        // Create movies with different price and point strategies
+        Movie nemoMovie = new Movie("Nemo", Movie.CHILDRENS, comedyGenre,
+                new ChildrensPriceStrategy(), new DefaultFrequentRenterPointStrategy());  // Movie  in Comedy genre with point strategy
+        Movie shrekMovie = new Movie("Shrek", Movie.CHILDRENS, comedyGenre,
+                new ChildrensPriceStrategy(), new DefaultFrequentRenterPointStrategy());  // Movie  in Comedy genre with point strategy
+        Movie dieHardMovie = new Movie("Die Hard", Movie.REGULAR, actionGenre,
+                new RegularPriceStrategy(), new DefaultFrequentRenterPointStrategy());  // Movie in Action genre with point strategy
+        Movie johnWickMovie = new Movie("John Wick", Movie.NEW_RELEASE, actionGenre,
+                new NewReleasePriceStrategy(), new BonusFrequentRenterPointStrategy());  // Movie  in Action genre with point strategy
 
         // Create rentals for the movies
-        Rental nemoRental = new Rental(nemoMovie, 3, member);  // create rental for movie (Nemo)
-        Rental shrekRental = new Rental(shrekMovie, 1, member);  // create rental for movie (Shrek)
-        Rental dieHardRental = new Rental(dieHardMovie, 5, member);  // create rental for movie (Die Hard)
-        Rental johnWickRental = new Rental(johnWickMovie, 2, member);  // create rental for movie (John Wick)
+        Rental nemoRental = new Rental(nemoMovie, 3, member);  // create rental for movie (Nemo) for 3 days
+        Rental shrekRental = new Rental(shrekMovie, 1, member);  // create rental for movie (Shrek) for 1 day
+        Rental dieHardRental = new Rental(dieHardMovie, 5, member);  // create rental for movie (Die Hard) for 5 days
+        Rental johnWickRental = new Rental(johnWickMovie, 2, member);  // create rental for movie (John Wick) for 2 days
 
         // Add rentals to the customer
         testCustomer.addRental(nemoRental);
         testCustomer.addRental(shrekRental);
         testCustomer.addRental(dieHardRental);
         testCustomer.addRental(johnWickRental);
+
+        // Output points for each rental
+        System.out.println("\nFrequent Renter Points for Each Rental:");
+        System.out.println("Nemo Rental Points: " + nemoRental.frequentRenterPoints());
+        System.out.println("Shrek Rental Points: " + shrekRental.frequentRenterPoints());
+        System.out.println("Die Hard Rental Points: " + dieHardRental.frequentRenterPoints());
+        System.out.println("John Wick Rental Points: " + johnWickRental.frequentRenterPoints());
 
         // Create reviews for the movies
         Review nemoReview = new Review(testCustomer, nemoMovie, 4);  // rating: 4 stars
@@ -43,7 +54,7 @@ public class Main {
         dieHardMovie.addReview(dieHardReview);
         johnWickMovie.addReview(johnWickReview);
 
-        // Output the customer's XML statement (no need to change)
+        // Output the customer's XML statement
         System.out.println(testCustomer.xmlStatement());
 
         // Display all reviews for the movies with star ratings
@@ -63,7 +74,6 @@ public class Main {
 
         // Display movies in each genre
         comedyGenre.displayMovies();  // Display all movies in the Comedy genre
-
         actionGenre.displayMovies();  // Display all movies in the Action genre
     }
 }

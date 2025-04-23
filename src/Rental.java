@@ -7,13 +7,13 @@ public class Rental {
     public Rental(Movie movie, int daysRented, Membership member) {
         _movie      = movie;
         _daysRented = daysRented;
-        _member = member;   
+        _member = member;
     }
-    
+
     public int getDaysRented() {
         return _daysRented;
     }
-    
+
     public Movie getMovie() {
         return _movie;
     }
@@ -29,19 +29,19 @@ public class Rental {
         }
         return basePrice;
     }
-    
 
-    public int frequentRenterPoints(){
-        _frequentRenterPoints++;
-                if ((_movie.getPriceCode() == Movie.NEW_RELEASE) &&
-                    (_daysRented > 1)) {
-                    _frequentRenterPoints++;
-                }
-                if(_member.getIsMember()){
-                    _frequentRenterPoints++;
-                }
-        return _frequentRenterPoints;
+
+    public int frequentRenterPoints() {
+        // Use the point strategy from Movie to calculate points
+        int points = _movie.getPointStrategy().calculatePoints(_daysRented);
+
+        // If the customer is a member, add 1 more point
+        if (_member.getIsMember()) {
+            points += 1;
+        }
+        return points;
     }
+
 
     public String xmlRentalStatement(){
         StringBuilder xml = new StringBuilder();
@@ -51,6 +51,6 @@ public class Rental {
         xml.append("      <Amount>").append(costOfRental()).append("</Amount>\n");
         xml.append("    </Rental>\n");
 
-        return xml.toString(); 
+        return xml.toString();
     }
 }
