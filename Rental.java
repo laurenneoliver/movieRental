@@ -1,4 +1,4 @@
-public class Rental {
+public class Rental implements RentalComponent {
     private Movie _movie;
     private Membership _member;
     private int   _daysRented;
