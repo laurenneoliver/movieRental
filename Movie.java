@@ -46,9 +46,8 @@ public class Movie {
         return _pointStrategy;
     }
 
-    // Setter for price code
-    public void setPriceCode(int priceCode) {
-        _priceCode = priceCode;
+    public float getPurchasePrice() {
+        return _purchasePrice;
     }
 
     // Getter for genre

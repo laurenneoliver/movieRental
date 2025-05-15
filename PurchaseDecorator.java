@@ -1,4 +1,4 @@
-public abstract class PurchaseDecorator implements PurchaseComponent {
+public abstract class PurchaseDecorator implements PurchaseComponent { //base class that wraps any PurchaseComponent acts as abstract base for all purchase coupons
     protected PurchaseComponent purchase;
 
     public PurchaseDecorator(PurchaseComponent purchase) {
