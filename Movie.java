@@ -14,10 +14,10 @@ public class Movie {
     private Genre _genre;             // Genre of the movie (e.g., Action, Comedy, Drama)
     private RentalPriceStrategy _priceStrategy;
     private FrequentRenterPointStrategy _pointStrategy;
-
+    private float _purchasePrice;
 
     // Constructor to initialize a movie with title, price code, and genre
-    public Movie(String title, int priceCode, Genre genre, RentalPriceStrategy priceStrategy, FrequentRenterPointStrategy pointStrategy) {
+    public Movie(String title, int priceCode, Genre genre, RentalPriceStrategy priceStrategy, FrequentRenterPointStrategy pointStrategy, float purchasePrice) {
         _title = title;
         _priceCode = priceCode;
         _reviews = new ArrayList<>();  // Initialize the reviews list
@@ -25,7 +25,7 @@ public class Movie {
         genre.addMovie(this);          // Add the movie to the genre's movie list
         _priceStrategy = priceStrategy;
         _pointStrategy = pointStrategy; // Assign the point strategy
-
+        _purchasePrice = purchasePrice;
     }
 
     // Getter for movie title
