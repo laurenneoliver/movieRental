@@ -57,6 +57,17 @@ public class Main {
         System.out.println("John Wick Rental Cost: " + johnWickRentalWithCoupon.costOfRental());
 
 
+        // Create a purchase (with base price from the movie)
+        PurchaseComponent dieHardPurchase = new Purchase(dieHardMovie, testCustomer);
+
+        // Apply the purchase coupon decorator
+        PurchaseComponent discountedPurchase = new TenPercentOffPurchaseCoupon(dieHardPurchase);
+
+        System.out.println("\nPurchase with 10% off coupon:");
+        System.out.println("Original Price: $" + dieHardPurchase.getPurchasePrice());
+        System.out.println("Discounted Price: $" + discountedPurchase.getPurchasePrice());
+        System.out.println("Frequent Buyer Points: " + discountedPurchase.frequentBuyerPoints());
+
 
 
         // Create reviews for the movies

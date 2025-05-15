@@ -28,12 +28,14 @@ public class Transaction {
     }
 
     public void printSummary() {
-        System.out.println("Transaction Summary:");
-        for (Rental r : rentals)
-            System.out.println("- RENTED: " + r.getMovie().getTitle() + " for $" + r.costOfRental());
-        for (Purchase p : purchases)
-            System.out.println("- BOUGHT: " + p.getMovie().getTitle() + " for $" + p.getPurchasePrice());
-        System.out.println("TOTAL: $" + getTotalCost());
-        System.out.println("POINTS: " + getTotalPoints());
+        System.out.println("\n--- Transaction Summary ---");
+        for (RentalComponent r : rentals)
+            System.out.println("RENTED: $" + r.costOfRental() + " | Points: " + r.frequentRenterPoints());
+
+        for (PurchaseComponent p : purchases)
+            System.out.println("PURCHASED: $" + p.getPurchasePrice() + " | Points: " + p.frequentBuyerPoints());
+
+        System.out.println("TOTAL COST: $" + getTotalCost());
+        System.out.println("TOTAL POINTS: " + getTotalPoints());
     }
 }
