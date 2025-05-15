@@ -1,29 +1,34 @@
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 public class Transaction {
-    private List<Rental> rentals = new ArrayList<>();
-    private List<Purchase> purchases = new ArrayList<>();
+    private List<RentalComponent> rentals;
+    private List<PurchaseComponent> purchases;
 
-    public void addRental(Rental rental) {
+    public Transaction() {
+        rentals = new ArrayList<RentalComponent>();
+        purchases = new ArrayList<PurchaseComponent>();
+    }
+
+    public void addRental(RentalComponent rental) {
         rentals.add(rental);
     }
 
-    public void addPurchase(Purchase purchase) {
+    public void addPurchase(PurchaseComponent purchase) {
         purchases.add(purchase);
     }
 
     public float getTotalCost() {
         float total = 0;
-        for (Rental r : rentals) total += r.costOfRental();
-        for (Purchase p : purchases) total += p.getPurchasePrice();
+        for (RentalComponent r : rentals) total += r.costOfRental();
+        for (PurchaseComponent p : purchases) total += p.getPurchasePrice();
         return total;
     }
 
     public int getTotalPoints() {
         int total = 0;
-        for (Rental r : rentals) total += r.frequentRenterPoints();
-        for (Purchase p : purchases) total += p.frequentBuyerPoints();
+        for (RentalComponent r : rentals) total += r.frequentRenterPoints();
+        for (PurchaseComponent p : purchases) total += p.frequentBuyerPoints();
         return total;
     }
 

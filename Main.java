@@ -10,13 +10,13 @@ public class Main {
 
         // Create movies with different price and point strategies
         Movie nemoMovie = new Movie("Nemo", Movie.CHILDRENS, comedyGenre,
-                new ChildrensPriceStrategy(), new DefaultFrequentRenterPointStrategy());  // Movie  in Comedy genre with point strategy
+                new ChildrensPriceStrategy(), new DefaultFrequentRenterPointStrategy(), 15.0f);  // Movie  in Comedy genre with point strategy
         Movie shrekMovie = new Movie("Shrek", Movie.CHILDRENS, comedyGenre,
-                new ChildrensPriceStrategy(), new DefaultFrequentRenterPointStrategy());  // Movie  in Comedy genre with point strategy
+                new ChildrensPriceStrategy(), new DefaultFrequentRenterPointStrategy(), 15.0f);  // Movie  in Comedy genre with point strategy
         Movie dieHardMovie = new Movie("Die Hard", Movie.REGULAR, actionGenre,
-                new RegularPriceStrategy(), new DefaultFrequentRenterPointStrategy());  // Movie in Action genre with point strategy
+                new RegularPriceStrategy(), new DefaultFrequentRenterPointStrategy(), 20.0f);  // Movie in Action genre with point strategy
         Movie johnWickMovie = new Movie("John Wick", Movie.NEW_RELEASE, actionGenre,
-                new NewReleasePriceStrategy(), new BonusFrequentRenterPointStrategy());  // Movie  in Action genre with point strategy
+                new NewReleasePriceStrategy(), new BonusFrequentRenterPointStrategy(), 25.0f);  // Movie  in Action genre with point strategy
 
         // Create rentals for the movies
         Rental nemoRental = new Rental(nemoMovie, 3, member);  // create rental for movie (Nemo) for 3 days
@@ -56,18 +56,20 @@ public class Main {
         System.out.println("\nCost for Each Rental (regular price):");
         System.out.println("John Wick Rental Cost: " + johnWickRentalWithCoupon.costOfRental());
 
+        Transaction transaction = new Transaction();
 
-        // Create a purchase (with base price from the movie)
-        PurchaseComponent dieHardPurchase = new Purchase(dieHardMovie, testCustomer);
+        // Add base rentals into transaction
+        transaction.addRental(nemoRentalWithCoupon);
+        transaction.addRental(shrekRentalWithCoupon);
+        transaction.addRental(dieHardRentalWithCoupon);
+        transaction.addRental(johnWickRentalWithCoupon);
 
-        // Apply the purchase coupon decorator
-        PurchaseComponent discountedPurchase = new TenPercentOffPurchaseCoupon(dieHardPurchase);
+        // Add purchase with coupon into transaction
+        PurchaseComponent discountedPurchase = new TenPercentOffPurchaseCoupon(new Purchase(dieHardMovie, testCustomer));
+        transaction.addPurchase(discountedPurchase);
 
-        System.out.println("\nPurchase with 10% off coupon:");
-        System.out.println("Original Price: $" + dieHardPurchase.getPurchasePrice());
-        System.out.println("Discounted Price: $" + discountedPurchase.getPurchasePrice());
-        System.out.println("Frequent Buyer Points: " + discountedPurchase.frequentBuyerPoints());
-
+        // Print summary
+        transaction.printSummary();
 
 
         // Create reviews for the movies
